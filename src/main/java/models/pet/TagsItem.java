@@ -1,20 +1,26 @@
 package models.pet;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
-@Getter
-@Setter
-@Accessors(fluent = true)
 public class TagsItem{
 
-    @JsonProperty("name")
-    private String tagName;
-
-    @JsonProperty("id")
     private int tagId;
+    private String tagName;
+    public String getTagName() {
+        return tagName;
+    }
+
+    public TagsItem setTagName(String tagName) {
+        this.tagName = tagName;
+        return this;
+    }
+
+    public int getTagId() {
+        return tagId;
+    }
+
+    public TagsItem setTagId(int tagId) {
+        this.tagId = tagId;
+        return this;
+    }
 
     @Override
     public String toString(){

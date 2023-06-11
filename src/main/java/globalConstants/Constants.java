@@ -36,6 +36,8 @@ public class Constants {
             "\"tags\":[[{\"id\":2312,\"name\":\"papy\"}]," +
             "\"status\":\"available\"}";
     public static final String PetStorePetValidBody = postCreatePet(petID).toString();
+
+
     public static final String PetStoreStoreOrderValidBody = postCreateOrder(orderID).toString();
     public static final String PetStoreStoreOrderWithInvalidBody = "PetStoreOrderModel{petId = '777'," +
             "quantity = '5'," +

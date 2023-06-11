@@ -1,20 +1,30 @@
 package models.pet;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
-@Getter
-@Setter
-@Accessors(fluent = true)
 public class Category{
 
-    @JsonProperty("name")
-    private String categoryName;
 
-    @JsonProperty("id")
+    private String categoryName;
     private int categoryId;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public Category setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+        return this;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public Category setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+        return this;
+    }
+
+
 
     @Override
     public String toString(){

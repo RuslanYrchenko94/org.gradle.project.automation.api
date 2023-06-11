@@ -1,35 +1,93 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@Getter
-@Setter
-@Accessors(fluent = true)
+
 
 public class PetStoreUserModel {
-    @JsonProperty("id")
+
+    public Integer getId() {
+        return id;
+    }
+
+    public PetStoreUserModel setId(Integer id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public PetStoreUserModel setUsername(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public PetStoreUserModel setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public PetStoreUserModel setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public PetStoreUserModel setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public PetStoreUserModel setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public PetStoreUserModel setPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public PetStoreUserModel setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+        return this;
+    }
+
     private Integer id;
-    @JsonProperty("username")
     private String username;
-    @JsonProperty("firstName")
     private String firstName;
-    @JsonProperty("lastName")
     private String lastName;
-    @JsonProperty("email")
     private String email;
-    @JsonProperty("password")
     private String password;
-    @JsonProperty("phone")
     private String phone;
-    @JsonProperty("userStatus")
     private Integer userStatus;
     @Override
     public String toString() {
@@ -42,8 +100,5 @@ public class PetStoreUserModel {
                         "\"password\":\""+password+"\"," +
                         "\"phone\":\""+phone+"\"," +
                         "\"userStatus\":"+userStatus+"}";
-
-
-
     }
 }

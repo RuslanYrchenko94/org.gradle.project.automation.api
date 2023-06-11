@@ -1,20 +1,23 @@
 package petStore.Pet;
 
-import io.restassured.response.Response;
-import org.testng.annotations.Test;
-import petStore.BaseTest;
-import petStore.Pet.PetDataProvider.PetStorePetDataProvider;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import petStore.BaseTest;
 
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.hamcrest.Matchers.*;
 import static globalConstants.Constants.*;
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.*;
+
 
 public class PetStorePetTests extends BaseTest {
 
-    @Test(description = "Finds Pets by status", dataProviderClass = PetStorePetDataProvider.class, dataProvider = "getPetStorePetsByStatus")
+    @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#getPetStorePetsByStatus")
+    @ParameterizedTest(name = "Finds Pets by status {3}")
     public void getPetStorePetsByStatusTest(String endpoint, Integer statusCode, String paramKey, String paramValue, String bodyKey) {
         given().spec(specForRequestCTJson)
                 .param(paramKey, paramValue)
@@ -24,10 +27,11 @@ public class PetStorePetTests extends BaseTest {
                 .statusCode(statusCode)
                 .body(bodyKey, is(notNullValue()));
     }
-    @Test(description = "Updates a pet in the store with form data",dataProviderClass = PetStorePetDataProvider.class, dataProvider = "postPetStorePet")
+    @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#postPetStorePet")
+    @ParameterizedTest(name = "Updates a pet in the store, status code {1}")
     public void postPetStorePetTest(String endpoint, Integer statusCode, Integer petID, String jsonSchema, String body) {
 
-        Response createPet =given().spec(specForRequestCTJson)
+        Response createPet = given().spec(specForRequestCTJson)
                 .body(body)
                 .when().post(format("%s%s", URL, endpoint));
         createPet.then().spec(specForResponse).statusCode(statusCode)
@@ -36,7 +40,8 @@ public class PetStorePetTests extends BaseTest {
             deletePetById(petID, endpoint);
         }
     }
-    @Test(description = "Updates a pet in the store by id with form data",dataProviderClass = PetStorePetDataProvider.class, dataProvider = "postPetStorePetById")
+    @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#postPetStorePetById")
+    @ParameterizedTest(name = "Updates a pet in the store by id, status code {1}")
     public void postPetStorePetByIDTest(String endpoint, Integer statusCode, Integer petID, String jsonSchema, String body) {
         if(statusCode.equals(CODE_OK)){
             createPet(endpoint);
@@ -49,7 +54,8 @@ public class PetStorePetTests extends BaseTest {
         deletePetById(petID, endpoint);
 
     }
-    @Test(description = "Deletes a pet with form data",dataProviderClass = PetStorePetDataProvider.class, dataProvider = "deletePetStorePet")
+    @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#deletePetStorePetById")
+    @ParameterizedTest(name = "Deletes a pet by id, status code {1}")
     public void deletePetByIDTest(String endpoint, Integer statusCode, Integer petID, String jsonSchema) {
 
        if(statusCode.equals(CODE_OK)){
@@ -64,7 +70,8 @@ public class PetStorePetTests extends BaseTest {
        else {deletePet.then().log().all().statusCode(statusCode);
        }
     }
-    @Test(description = "Find pet by ID with form data",dataProviderClass = PetStorePetDataProvider.class, dataProvider = "getPetStorePet")
+    @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#getPetStorePetById")
+    @ParameterizedTest(name = "Find pet by id, status code {1}")
     public void getPetByIDTest(String endpoint, Integer statusCode, Integer petID, String jsonSchema) {
 
         if(statusCode.equals(CODE_OK)){

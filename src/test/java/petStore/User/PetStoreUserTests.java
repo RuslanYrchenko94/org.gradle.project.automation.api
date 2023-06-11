@@ -2,10 +2,9 @@ package petStore.User;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import petStore.BaseTest;
-import petStore.User.UserDataProvider.PetStoreUserDataProvider;
-
 import java.sql.*;
 
 import static globalConstants.Constants.*;
@@ -16,7 +15,8 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class PetStoreUserTests extends BaseTest {
 
-    @Test(description = "Create user", dataProviderClass = PetStoreUserDataProvider.class, dataProvider = "postPetStoreUser")
+    @MethodSource("petStore.User.UserDataProvider.PetStoreUserDataProvider#postPetStoreUser")
+    @ParameterizedTest(name = "Create user, status code {1}")
     public void postPetStoreUserTest(String endpoint, Integer statusCode, String jsonSchema, String body) {
         Response createUser = given().spec(specForRequestCTJson)
                 .body(body)
@@ -37,7 +37,8 @@ public class PetStoreUserTests extends BaseTest {
                     .body("message", equalTo("bad input"));
         }
     }
-    @Test(description = "Get user by username", dataProviderClass = PetStoreUserDataProvider.class, dataProvider = "getPetStoreUserByUserName")
+    @MethodSource("petStore.User.UserDataProvider.PetStoreUserDataProvider#getPetStoreUserByUserName")
+    @ParameterizedTest(name = "Get user by username, status code {1}")
     public void getPetStoreUserByUserName(String endpoint, Integer statusCode, String Username, String jsonSchema){
 
         if(statusCode.equals(CODE_OK)){
@@ -63,7 +64,8 @@ public class PetStoreUserTests extends BaseTest {
             getUser.then().log().all().statusCode(statusCode).contentType(ContentType.XML);
         }
     }
-    @Test(description = "Create user", dataProviderClass = PetStoreUserDataProvider.class, dataProvider = "deletePetStoreUserByUserName")
+    @MethodSource("petStore.User.UserDataProvider.PetStoreUserDataProvider#deletePetStoreUserByUserName")
+    @ParameterizedTest(name = "Delete user by username, status code {1}")
     public void deletePetStoreUserByUserName(String endpoint, Integer statusCode, String Username, String jsonSchema){
 
         if(statusCode.equals(CODE_OK)){
@@ -92,10 +94,10 @@ public class PetStoreUserTests extends BaseTest {
         given().spec(specForRequestCTJson).body(PetStoreUserValidBody)
                 .when().post(format("%s%s", URL, endpoint));
     }
-    private void addUserToDatabase(Integer id, String username){
+    private void addUserToDatabase(Integer Id, String username){
 
         try (Connection connection = DriverManager.getConnection(database_url, database_username, database_password)) {
-            String sql = "INSERT INTO test.users (id, username) VALUES ("+id+", '"+username+"');commit;";
+            String sql = "INSERT INTO test.users (id, username) VALUES ("+Id+", '"+username+"');commit;";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {

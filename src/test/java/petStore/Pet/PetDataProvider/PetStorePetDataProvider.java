@@ -1,66 +1,59 @@
 package petStore.Pet.PetDataProvider;
 
-import org.testng.annotations.DataProvider;
+import org.junit.jupiter.params.provider.Arguments;
+import java.util.stream.Stream;
 import static config.enums.PetStoreEndpoint.*;
 import static globalConstants.Constants.*;
 
-
-public class PetStorePetDataProvider {
-
-    @DataProvider(name = "getPetStorePetsByStatus")
-    public Object[][] getPetStoreStoreInventoryWithParam() {
-        return new Object[][]{
+public class PetStorePetDataProvider{
+     static Stream<Arguments> getPetStorePetsByStatus() {
+        return Stream.of(
                 // valid case Finds Pets by sold status
-                {PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "sold", "category"},
+                Arguments.of(PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "sold", "category"),
                 // valid case Finds Pets by pending status
-                {PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "pending", "category"},
+                Arguments.of(PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "pending", "category"),
                 // valid case Finds Pets by available status
-                {PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "available", "category"},
+                Arguments.of(PET_FIND_BY_STATUS.getEndpoint(), CODE_OK, STATUS, "available", "category"),
                 // invalid case Finds Pets by available status with invalid endpoint
-                {"/pet/findByStats", 404, STATUS, "available", "type"}
-        };
+                Arguments.of("/pet/findByStats", 404, STATUS, "available", "type")
+        );
     }
 
-    @DataProvider(name = "postPetStorePet")
-    public Object[][] postPetStorePetWithParam() {
-        return new Object[][]{
+
+    static Stream<Arguments> postPetStorePet() {
+        return Stream.of(
                 // valid case
-                {PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponsePostPet.json", PetStorePetValidBody},
+                Arguments.of(PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponsePostPet.json", PetStorePetValidBody),
                 //create pet with invalid ID
-                {PET.getEndpoint(), 400, 0, "json.schema.PetStore/receiveResponsePostWithInvalidBody.json", PetStorePetBodyWithInvalidID},
+                Arguments.of(PET.getEndpoint(), 400, 0, "json.schema.PetStore/receiveResponsePostWithInvalidBody.json", PetStorePetBodyWithInvalidID),
                 //create pet with invalid body
-                {PET.getEndpoint(), 500, 0, "json.schema.PetStore/receiveResponsePostWithInvalidBody.json", PetStorePetBodyWithInvalidBody}
-
-        };
+                Arguments.of(PET.getEndpoint(), 500, 0, "json.schema.PetStore/receiveResponsePostWithInvalidBody.json", PetStorePetBodyWithInvalidBody)
+        );
     }
-    @DataProvider(name = "postPetStorePetById")
-    public Object[][] postPetStorePetByIdWithParam() {
-        return new Object[][]{
+    static Stream<Arguments>postPetStorePetById() {
+        return Stream.of(
                 // valid case
-                {PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponsePostPetById.json", "name=Spike&status=sold"},
+                Arguments.of(PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponsePostPetById.json", "name=Spike&status=sold"),
                 // no record found
-                {PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseGetNotFound.json", "name=Spike&status=sold"}
-        };
+                Arguments.of(PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseGetNotFound.json", "name=Spike&status=sold")
+        );
     }
-
-    @DataProvider(name = "deletePetStorePet")
-    public Object[][] deletePetStorePetByIdWithParam() {
-        return new Object[][]{
+    static Stream<Arguments>deletePetStorePetById(){
+        return Stream.of(
                 // valid case
-                {PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponseDelete.json"},
+                Arguments.of(PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponseDelete.json"),
                 // no record found
-                {PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseDelete.json"}
-        };
+                Arguments.of(PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseDelete.json")
+        );
     }
-    @DataProvider(name = "getPetStorePet")
-    public Object[][] getPetStorePetByIdWithParam() {
-        return new Object[][]{
+    static Stream<Arguments>getPetStorePetById(){
+        return Stream.of(
                 // valid case
-                {PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponseGetPet.json"},
+                Arguments.of(PET.getEndpoint(), CODE_OK, petID, "json.schema.PetStore/receiveResponseGetPet.json"),
                 // no record found
-                {PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseGetNotFound.json"},
+                Arguments.of(PET.getEndpoint(), 404, petID, "json.schema.PetStore/receiveResponseGetNotFound.json"),
                 //invalid param
-                {PET.getEndpoint(), 405, petID, "json.schema.PetStore/receiveResponseGetNotFound.json"}
-        };
+                Arguments.of(PET.getEndpoint(), 405, petID, "json.schema.PetStore/receiveResponseGetNotFound.json")
+        );
     }
 }

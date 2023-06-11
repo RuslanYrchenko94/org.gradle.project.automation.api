@@ -2,18 +2,22 @@ package petStore.Store;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import org.testng.annotations.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import petStore.BaseTest;
-import petStore.Store.StoreDataProvider.PetStoreStoreDataProvider;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static globalConstants.Constants.*;
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static java.lang.String.format;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.equalToIgnoringCase;
+
 
 public class PetStoreStoreTests extends BaseTest {
-    @Test(description = "Returns pet inventories by status", dataProviderClass = PetStoreStoreDataProvider.class, dataProvider = "getPetStoreStoreInventory")
+
+    @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#getPetStoreStoreInventory")
+    @ParameterizedTest(name = "Returns pet inventories by status")
     public void getPetStoreInventoryTest(String endpoint, Integer statusCode, String jsonSchema) {
         given().spec(specForRequestCTJson)
                 .when().get(format("%s%s", URL, endpoint))
@@ -22,7 +26,8 @@ public class PetStoreStoreTests extends BaseTest {
                 .statusCode(statusCode)
                 .body(matchesJsonSchemaInClasspath(jsonSchema));
     }
-    @Test(description = "Place an order for a pet", dataProviderClass = PetStoreStoreDataProvider.class, dataProvider = "postPetStoreOrder")
+    @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#postPetStoreOrder")
+    @ParameterizedTest(name = "Place an order for a pet")
     public void postPetStoreOrderTest(String endpoint, Integer statusCode, String jsonSchema, String body) {
         Response createOrder = given().spec(specForRequestCTJson)
                 .body(body)
@@ -33,7 +38,8 @@ public class PetStoreStoreTests extends BaseTest {
             deleteOrderById(orderID, endpoint);
         }
     }
-    @Test(description = "Find order by ID with form data",dataProviderClass = PetStoreStoreDataProvider.class, dataProvider = "getPetStoreOrderById")
+    @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#getPetStoreOrderById")
+    @ParameterizedTest(name = "Find order by ID, status code {1}")
     public void getPetStoreOrderByIDTest(String endpoint, Integer statusCode, Integer orderID, String jsonSchema) {
 
         if(statusCode.equals(CODE_OK)){
@@ -58,7 +64,8 @@ public class PetStoreStoreTests extends BaseTest {
             getPet.then().log().all().statusCode(statusCode).contentType(ContentType.XML);
         }
     }
-    @Test(description = "Deletes a order with form data",dataProviderClass = PetStoreStoreDataProvider.class, dataProvider = "deletePetStoreOrder")
+    @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#deletePetStoreOrder")
+    @ParameterizedTest(name = "Delete order by ID, status code {1}")
     public void deleteOrderByIDTest(String endpoint, Integer statusCode, Integer orderId, String jsonSchema) {
 
         if(statusCode == CODE_OK){
