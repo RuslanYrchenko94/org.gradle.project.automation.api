@@ -11,4 +11,4 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '17'
       - uses: mikepenz/action-junit-report@v3
-      - run: ./gradlew clean test -Djunit.remote=http://localhost:4444/wd/hub
+      - run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub
