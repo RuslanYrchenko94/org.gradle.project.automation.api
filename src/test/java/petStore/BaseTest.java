@@ -1,14 +1,12 @@
 package petStore;
 
-import io.qameta.allure.junit5.AllureJunit5;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.junit.jupiter.api.extension.InvocationInterceptor;
-import org.junit.platform.commons.logging.Logger;
+
 
 public class BaseTest {
     protected RequestSpecification specForRequestCTJson = new RequestSpecBuilder()
