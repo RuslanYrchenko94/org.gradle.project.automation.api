@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: [com.datastax.junit.remote.RemoteTestServer]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
