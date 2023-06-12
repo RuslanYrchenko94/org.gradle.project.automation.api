@@ -1,7 +1,20 @@
 plugins {
     id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
 }
-
+allure {
+    report{
+        version.set("2.19.0")
+    }
+    adapter{
+        aspectjWeaver.set(true)
+        frameworks{
+            junit5{
+                adapterVersion.set("2.19.0")
+            }
+        }
+    }
+}
 repositories {
     mavenCentral()
 }
@@ -13,7 +26,7 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:5.9.2",
             'org.slf4j:slf4j-simple:2.0.5',
             'io.rest-assured:json-schema-validator:5.3.0',
-            'org.postgresql:postgresql:42.6.0')
+            'io.qameta.allure:allure-junit5:2.22.1')
 
 }
 

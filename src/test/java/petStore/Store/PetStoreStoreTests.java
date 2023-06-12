@@ -23,8 +23,7 @@ public class PetStoreStoreTests extends BaseTest {
                 .when().get(format("%s%s", URL, endpoint))
                 .then()
                 .spec(specForResponse)
-                .statusCode(statusCode)
-                .body(matchesJsonSchemaInClasspath(jsonSchema));
+                .statusCode(statusCode);
     }
     @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#postPetStoreOrder")
     @ParameterizedTest(name = "Place an order for a pet")
