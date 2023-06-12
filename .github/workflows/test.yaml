@@ -10,4 +10,5 @@ jobs:
         with:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '17'
+      - uses: mikepenz/action-junit-report@v3
       - run: ./gradlew clean test
