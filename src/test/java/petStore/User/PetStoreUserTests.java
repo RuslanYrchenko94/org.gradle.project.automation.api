@@ -24,7 +24,7 @@ public class PetStoreUserTests extends BaseTest {
 
             createUser.then().spec(specForResponse).statusCode(CODE_OK)
                 .body(matchesJsonSchemaInClasspath(jsonSchema))
-                .body("message", equalTo(Username));
+                .body("message", equalTo(userID.toString()));
 
             deleteUserByUsername(Username, endpoint);
         }
