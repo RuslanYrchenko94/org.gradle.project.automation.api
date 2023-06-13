@@ -2,6 +2,7 @@ package petStore.User;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import petStore.BaseTest;
@@ -12,6 +13,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static java.lang.String.format;
 import static org.hamcrest.Matchers.equalTo;
 
+@Tag("UserTest")
 public class PetStoreUserTests extends BaseTest {
 
     @MethodSource("petStore.User.UserDataProvider.PetStoreUserDataProvider#postPetStoreUser")

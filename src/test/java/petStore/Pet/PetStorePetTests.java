@@ -2,6 +2,8 @@ package petStore.Pet;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import petStore.BaseTest;
@@ -13,7 +15,7 @@ import static globalConstants.Constants.*;
 import static io.restassured.RestAssured.given;
 import static java.lang.String.format;
 
-
+@Tag("PetTest")
 public class PetStorePetTests extends BaseTest {
 
     @MethodSource("petStore.Pet.PetDataProvider.PetStorePetDataProvider#getPetStorePetsByStatus")

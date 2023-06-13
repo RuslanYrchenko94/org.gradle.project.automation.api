@@ -33,17 +33,6 @@ dependencies {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-tasks.withType(JavaCompile) {
-    options.compilerArgs += "--enable-preview"
-}
-
-tasks.withType(Test) {
-    jvmArgs += "--enable-preview"
-}
-
-tasks.withType(JavaExec) {
-    jvmArgs += '--enable-preview'
-}
 
 test {
     useJUnitPlatform()
@@ -52,3 +41,19 @@ test {
         }
     systemProperties(System.getProperties())
 }
+task pet_test(type: Test){
+    useJUnitPlatform {
+        includeTags("PetTest")
+    }
+}
+task store_test(type: Test){
+    useJUnitPlatform {
+        includeTags("StoreTest")
+    }
+}
+task user_test(type: Test){
+    useJUnitPlatform {
+        includeTags("UserTest")
+    }
+}
+

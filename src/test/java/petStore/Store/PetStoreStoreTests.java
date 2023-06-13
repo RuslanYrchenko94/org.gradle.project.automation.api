@@ -2,6 +2,7 @@ package petStore.Store;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import petStore.BaseTest;
@@ -13,7 +14,7 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
-
+@Tag("StoreTest")
 public class PetStoreStoreTests extends BaseTest {
 
     @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#getPetStoreStoreInventory")
