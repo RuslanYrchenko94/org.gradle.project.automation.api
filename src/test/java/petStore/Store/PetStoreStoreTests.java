@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.equalToIgnoringCase;
 
 @Tag("StoreTest")
+@Tag("All")
 public class PetStoreStoreTests extends BaseTest {
 
     @MethodSource("petStore.Store.StoreDataProvider.PetStoreStoreDataProvider#getPetStoreStoreInventory")

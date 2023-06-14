@@ -41,6 +41,11 @@ test {
         }
     systemProperties(System.getProperties())
 }
+task all(type: Test){
+    useJUnitPlatform {
+        includeTags("All")
+    }
+}
 task pet_test(type: Test){
     useJUnitPlatform {
         includeTags("PetTest")

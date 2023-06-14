@@ -14,6 +14,7 @@ import static java.lang.String.format;
 import static org.hamcrest.Matchers.equalTo;
 
 @Tag("UserTest")
+@Tag("All")
 public class PetStoreUserTests extends BaseTest {
 
     @MethodSource("petStore.User.UserDataProvider.PetStoreUserDataProvider#postPetStoreUser")
