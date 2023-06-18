@@ -4,7 +4,7 @@
     "project": "Pet Store",
     "environment": "test",
     "comment": "For support, contact @yrw94",
-    "reportLink": "",
+    "reportLink": "${BUILD_URL}",
     "language": "en",
     "allureFolder": "allure-report/",
     "enableChart": true
