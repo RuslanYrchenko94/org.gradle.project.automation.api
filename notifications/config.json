@@ -1,0 +1,17 @@
+{
+  "base": {
+    "logo": "",
+    "project": "Pet Store",
+    "environment": "test",
+    "comment": "For support, contact @yrw94",
+    "reportLink": "",
+    "language": "en",
+    "allureFolder": "build/reports/allure-report/allureReport",
+    "enableChart": true
+  },
+  "telegram": {
+    "token": "6185920877:AAEuvi_SrbMvoTYHYwSLl9ECuBxiKmfTAz0",
+    "chat": "-1001351880958",
+    "replyTo": ""
+  }
+}
